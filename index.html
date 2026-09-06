@@ -40,70 +40,71 @@
       z-index: 500;
     }
 
-    .sidebar h2 {
-      margin: 0 0 6px;
-      font-size: 20px;
-      letter-spacing: -0.3px;
-    }
+    .sidebar h2 { margin: 0 0 6px; font-size: 20px; letter-spacing: -0.3px; }
+    .sidebar .sub { margin: 0 0 22px; color: #888; font-size: 12px; }
+    .section-title { margin: 28px 0 6px; font-size: 15px; }
+    .section-copy { margin: 0 0 14px; font-size: 12px; color: #888; line-height: 1.5; }
 
-    .sidebar .sub {
-      margin: 0 0 22px;
-      color: #888;
-      font-size: 12px;
-    }
-
-    .rank-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
+    .rank-list { display: flex; flex-direction: column; gap: 10px; }
     .rank-row {
       display: grid;
       grid-template-columns: 26px 1fr;
       gap: 10px;
-      align-items: start;
+      align-items: center;
+      padding: 8px 6px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background .15s ease;
     }
+    .rank-row:hover { background: #f6f6f6; }
+    .rank-num { font-size: 13px; font-weight: 700; color: #666; }
+    .rank-name { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; font-weight: 600; margin-bottom: 7px; }
+    .rank-score { color: #777; font-size: 12px; font-weight: 400; }
+    .bar { width: 100%; height: 6px; background: #efefef; border-radius: 999px; overflow: hidden; }
+    .bar > span { display: block; height: 100%; background: #111; border-radius: inherit; }
 
-    .rank-num {
-      font-size: 13px;
-      font-weight: 700;
-      color: #666;
-      padding-top: 2px;
-    }
-
-    .rank-name {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 7px;
-    }
-
-    .rank-score {
-      color: #777;
-      font-size: 12px;
-      font-weight: 400;
-    }
-
-    .bar {
-      width: 100%;
-      height: 6px;
-      background: #efefef;
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .bar > span {
-      display: block;
-      height: 100%;
-      background: #111;
-      border-radius: inherit;
-    }
+    .legend { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #666; }
+    .legend-badge { padding: 5px 8px; background: #111; color: #fff; border-radius: 8px; font-weight: 700; }
 
     #map { width: 100%; height: 100%; }
     .leaflet-control-attribution { font-size: 10px; }
+    .price-marker { background: transparent; border: 0; }
+    .price-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 56px;
+      height: 32px;
+      padding: 0 10px;
+      border: 1px solid #111;
+      border-radius: 10px;
+      background: #fff;
+      color: #111;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 3px 12px rgba(0,0,0,.16);
+      white-space: nowrap;
+    }
+    .price-pill:hover { background: #111; color: #fff; }
+    .hotel-popup { min-width: 210px; }
+    .hotel-popup .city { color: #777; font-size: 11px; margin-bottom: 5px; }
+    .hotel-popup .name { font-size: 15px; font-weight: 800; margin-bottom: 8px; }
+    .hotel-popup .price { font-size: 13px; margin-bottom: 10px; }
+    .hotel-popup .price strong { font-size: 18px; }
+    .hotel-popup .note { color: #888; font-size: 10px; line-height: 1.4; margin-bottom: 10px; }
+    .hotel-popup a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 36px;
+      border-radius: 9px;
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+    }
 
     @media (max-width: 760px) {
       header { padding: 0 16px; }
@@ -131,45 +132,19 @@
   <div class="app">
     <aside class="sidebar">
       <h2>인기 여행지</h2>
-      <p class="sub">임시 순위</p>
+      <p class="sub">도시를 누르면 해당 지역 숙소로 이동합니다.</p>
 
       <div class="rank-list">
-        <div class="rank-row">
-          <div class="rank-num">1</div>
-          <div>
-            <div class="rank-name"><span>도쿄</span><span class="rank-score">100</span></div>
-            <div class="bar"><span style="width:100%"></span></div>
-          </div>
-        </div>
-        <div class="rank-row">
-          <div class="rank-num">2</div>
-          <div>
-            <div class="rank-name"><span>파리</span><span class="rank-score">92</span></div>
-            <div class="bar"><span style="width:92%"></span></div>
-          </div>
-        </div>
-        <div class="rank-row">
-          <div class="rank-num">3</div>
-          <div>
-            <div class="rank-name"><span>방콕</span><span class="rank-score">86</span></div>
-            <div class="bar"><span style="width:86%"></span></div>
-          </div>
-        </div>
-        <div class="rank-row">
-          <div class="rank-num">4</div>
-          <div>
-            <div class="rank-name"><span>바르셀로나</span><span class="rank-score">79</span></div>
-            <div class="bar"><span style="width:79%"></span></div>
-          </div>
-        </div>
-        <div class="rank-row">
-          <div class="rank-num">5</div>
-          <div>
-            <div class="rank-name"><span>뉴욕</span><span class="rank-score">73</span></div>
-            <div class="bar"><span style="width:73%"></span></div>
-          </div>
-        </div>
+        <div class="rank-row" data-city="tokyo"><div class="rank-num">1</div><div><div class="rank-name"><span>도쿄</span><span class="rank-score">100</span></div><div class="bar"><span style="width:100%"></span></div></div></div>
+        <div class="rank-row" data-city="paris"><div class="rank-num">2</div><div><div class="rank-name"><span>파리</span><span class="rank-score">92</span></div><div class="bar"><span style="width:92%"></span></div></div></div>
+        <div class="rank-row" data-city="bangkok"><div class="rank-num">3</div><div><div class="rank-name"><span>방콕</span><span class="rank-score">86</span></div><div class="bar"><span style="width:86%"></span></div></div></div>
+        <div class="rank-row" data-city="barcelona"><div class="rank-num">4</div><div><div class="rank-name"><span>바르셀로나</span><span class="rank-score">79</span></div><div class="bar"><span style="width:79%"></span></div></div></div>
+        <div class="rank-row" data-city="newyork"><div class="rank-num">5</div><div><div class="rank-name"><span>뉴욕</span><span class="rank-score">73</span></div><div class="bar"><span style="width:73%"></span></div></div></div>
       </div>
+
+      <h3 class="section-title">지도 숙소</h3>
+      <p class="section-copy">가격 표시는 전부 USD 기준입니다. 현재 가격은 레이아웃 테스트용 예시이며, 실제 예약 가격은 아고다에서 확인합니다.</p>
+      <div class="legend"><span class="legend-badge">$128</span><span>1박 가격 표시</span></div>
     </aside>
 
     <main id="map" aria-label="세계 지도"></main>
@@ -190,8 +165,59 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
-
     map.setMaxBounds([[-85, -180], [85, 180]]);
+
+    const cityViews = {
+      tokyo: [35.6762, 139.6503],
+      paris: [48.8566, 2.3522],
+      bangkok: [13.7563, 100.5018],
+      barcelona: [41.3874, 2.1686],
+      newyork: [40.7128, -74.0060]
+    };
+
+    const hotels = [
+      { city:'도쿄', name:'Shinjuku City Hotel', lat:35.6938, lng:139.7034, price:128 },
+      { city:'도쿄', name:'Asakusa Stay', lat:35.7148, lng:139.7967, price:96 },
+      { city:'도쿄', name:'Shibuya Central Hotel', lat:35.6595, lng:139.7005, price:154 },
+      { city:'파리', name:'Paris Central Stay', lat:48.8606, lng:2.3376, price:176 },
+      { city:'파리', name:'Montmartre Hotel', lat:48.8867, lng:2.3431, price:142 },
+      { city:'방콕', name:'Sukhumvit City Hotel', lat:13.7394, lng:100.5601, price:72 },
+      { city:'방콕', name:'Riverside Bangkok Stay', lat:13.7220, lng:100.5130, price:88 },
+      { city:'바르셀로나', name:'Eixample City Hotel', lat:41.3902, lng:2.1633, price:131 },
+      { city:'바르셀로나', name:'Gothic Quarter Stay', lat:41.3839, lng:2.1763, price:118 },
+      { city:'뉴욕', name:'Midtown Manhattan Hotel', lat:40.7549, lng:-73.9840, price:219 },
+      { city:'뉴욕', name:'Lower Manhattan Stay', lat:40.7081, lng:-74.0122, price:198 }
+    ];
+
+    function agodaSearchUrl(hotel) {
+      return 'https://www.agoda.com/search?text=' + encodeURIComponent(hotel.name + ' ' + hotel.city);
+    }
+
+    hotels.forEach((hotel) => {
+      const icon = L.divIcon({
+        className: 'price-marker',
+        html: '<div class="price-pill">$' + hotel.price + '</div>',
+        iconSize: [62, 32],
+        iconAnchor: [31, 16]
+      });
+
+      const popup = '<div class="hotel-popup">' +
+        '<div class="city">' + hotel.city + '</div>' +
+        '<div class="name">' + hotel.name + '</div>' +
+        '<div class="price"><strong>$' + hotel.price + '</strong> / 1박</div>' +
+        '<div class="note">표시 가격은 현재 데모용입니다. 실제 날짜별 가격과 객실 재고는 아고다에서 확인하세요.</div>' +
+        '<a href="' + agodaSearchUrl(hotel) + '" target="_blank" rel="noopener noreferrer">아고다에서 보기 →</a>' +
+      '</div>';
+
+      L.marker([hotel.lat, hotel.lng], { icon }).addTo(map).bindPopup(popup, { maxWidth: 260 });
+    });
+
+    document.querySelectorAll('.rank-row[data-city]').forEach((row) => {
+      row.addEventListener('click', () => {
+        const coords = cityViews[row.dataset.city];
+        if (coords) map.flyTo(coords, 12, { duration: 1.2 });
+      });
+    });
 
     const SUPABASE_URL = 'https://vquxardponweuvuvdtyc.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_PbBHugcKsWE_jgpVTou75A_Hq_8oeUy';
@@ -202,12 +228,10 @@
     async function renderAuth() {
       const { data } = await client.auth.getSession();
       const session = data.session;
-
       if (!session) {
         authArea.innerHTML = '<a class="auth-btn" href="/login.html">로그인</a>';
         return;
       }
-
       const email = session.user.email || '로그인됨';
       authArea.innerHTML = '<span class="auth-email"></span><button class="auth-btn secondary" id="logoutBtn" type="button">로그아웃</button>';
       authArea.querySelector('.auth-email').textContent = email;
