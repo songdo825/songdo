@@ -13,6 +13,7 @@
       height: 72px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       padding: 0 24px;
       border-bottom: 1px solid #e8e8e8;
       background: rgba(255,255,255,0.96);
@@ -20,6 +21,10 @@
       z-index: 1000;
     }
     h1 { margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+    .auth-area { display: flex; align-items: center; gap: 10px; }
+    .auth-email { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; color: #666; }
+    .auth-btn { display: inline-flex; align-items: center; justify-content: center; height: 38px; padding: 0 16px; border-radius: 10px; border: 1px solid #111; background: #111; color: #fff; text-decoration: none; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .auth-btn.secondary { background: #fff; color: #111; }
 
     .app {
       height: calc(100vh - 72px);
@@ -101,6 +106,8 @@
     .leaflet-control-attribution { font-size: 10px; }
 
     @media (max-width: 760px) {
+      header { padding: 0 16px; }
+      .auth-email { display: none; }
       .app { grid-template-columns: 1fr; }
       .sidebar {
         position: absolute;
@@ -116,6 +123,9 @@
 <body>
   <header>
     <h1>songdo</h1>
+    <div class="auth-area" id="authArea">
+      <a class="auth-btn" href="/login.html">로그인</a>
+    </div>
   </header>
 
   <div class="app">
@@ -166,6 +176,7 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const map = L.map('map', {
       center: [20, 0],
@@ -181,6 +192,33 @@
     }).addTo(map);
 
     map.setMaxBounds([[-85, -180], [85, 180]]);
+
+    const SUPABASE_URL = 'https://vquxardponweuvuvdtyc.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_PbBHugcKsWE_jgpVTou75A_Hq_8oeUy';
+    const { createClient } = supabase;
+    const client = createClient(SUPABASE_URL, SUPABASE_KEY);
+    const authArea = document.getElementById('authArea');
+
+    async function renderAuth() {
+      const { data } = await client.auth.getSession();
+      const session = data.session;
+
+      if (!session) {
+        authArea.innerHTML = '<a class="auth-btn" href="/login.html">로그인</a>';
+        return;
+      }
+
+      const email = session.user.email || '로그인됨';
+      authArea.innerHTML = '<span class="auth-email"></span><button class="auth-btn secondary" id="logoutBtn" type="button">로그아웃</button>';
+      authArea.querySelector('.auth-email').textContent = email;
+      document.getElementById('logoutBtn').addEventListener('click', async () => {
+        await client.auth.signOut();
+        renderAuth();
+      });
+    }
+
+    renderAuth();
+    client.auth.onAuthStateChange(() => renderAuth());
   </script>
 </body>
 </html>
