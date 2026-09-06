@@ -124,7 +124,10 @@
     document.documentElement.lang=currentLang;
 
     const map=L.map('map',{center:[20,0],zoom:2,minZoom:2,maxZoom:18,zoomControl:true,worldCopyJump:true});
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap contributors &copy; CARTO',subdomains:'abcd',maxZoom:20}).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      attribution:'&copy; OpenStreetMap contributors',
+      maxZoom:19
+    }).addTo(map);
     map.setMaxBounds([[-85,-180],[85,180]]);
 
     const mapLabelLayer=L.layerGroup().addTo(map);
