@@ -4,16 +4,48 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>songdo</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <style>
     * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; background: #fff; color: #000; font-family: Arial, Helvetica, sans-serif; }
-    header { padding: 24px; }
-    h1 { margin: 0; font-size: 32px; font-weight: 700; }
+    html, body { margin: 0; width: 100%; height: 100%; font-family: Arial, Helvetica, sans-serif; }
+    body { background: #fff; color: #111; overflow: hidden; }
+    header {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      border-bottom: 1px solid #e8e8e8;
+      background: rgba(255,255,255,0.96);
+      position: relative;
+      z-index: 1000;
+    }
+    h1 { margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+    #map { width: 100%; height: calc(100vh - 72px); }
+    .leaflet-control-attribution { font-size: 10px; }
   </style>
 </head>
 <body>
   <header>
     <h1>songdo</h1>
   </header>
+  <main id="map" aria-label="세계 지도"></main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    const map = L.map('map', {
+      center: [20, 0],
+      zoom: 2,
+      minZoom: 2,
+      maxZoom: 18,
+      zoomControl: true,
+      worldCopyJump: true
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    map.setMaxBounds([[-85, -180], [85, 180]]);
+  </script>
 </body>
 </html>
