@@ -4,8 +4,13 @@
   .app{grid-template-columns:1fr!important;position:relative}
   .sidebar{position:fixed!important;top:88px;left:14px;width:230px;max-height:46vh;padding:11px 10px!important;border:1px solid rgba(0,0,0,.10)!important;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.16);background:rgba(251,255,244,.95)!important;backdrop-filter:blur(10px);z-index:930!important;overflow:auto}
   .sidebar h2{font-size:14px;margin:0 0 2px!important}.sidebar .sub{font-size:9px;margin:0 0 8px!important}.city-list{gap:4px!important}.city-card{padding:6px 8px!important;border-radius:9px!important}.city-head{margin:0!important}.city-name{font-size:11px}.fav-btn{font-size:16px!important;line-height:1;padding:0 2px}.sidebar .social,.sidebar .ratings{display:none!important}
-  .city-detail-ratings{margin-top:15px;padding-top:14px;border-top:1px solid #e3e8df}.city-detail-ratings-title{font-size:12px;font-weight:900;color:#26351e;margin-bottom:8px}.city-detail-rating-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.city-detail-rating{border:1px solid #e0e7da;background:#f8faf6;border-radius:11px;padding:9px 10px;text-align:left;cursor:pointer;color:#26351e}.city-detail-rating:hover{background:#eef6e7}.city-detail-rating-top{display:flex;justify-content:space-between;align-items:center;gap:8px}.city-detail-rating-label{font-size:10px;font-weight:900}.city-detail-rating-score{font-size:11px;font-weight:900}.city-detail-rating-stars{font-size:12px;color:#6da638;letter-spacing:.5px;margin-top:4px}.city-detail-rating-count{font-size:9px;color:#8a9383;margin-top:2px}.city-detail-rate-note{font-size:9px;color:#8d9588;margin-top:8px}
-  @media(max-width:760px){.sidebar{top:78px;left:10px;width:190px;max-height:34vh}.city-detail-rating-grid{grid-template-columns:1fr 1fr}}
+  .city-detail{position:fixed!important;top:88px!important;right:18px!important;left:auto!important;width:min(390px,calc(100vw - 36px))!important;max-width:calc(100vw - 36px)!important;max-height:calc(100vh - 112px)!important;overflow-x:hidden!important;overflow-y:auto!important;box-sizing:border-box!important;z-index:2500!important}
+  .city-detail.open{transform:translateX(0)!important}
+  .city-detail-photo,.city-detail-body,.city-detail-stats,.city-detail-rating-grid{min-width:0!important}
+  .city-detail img{max-width:100%!important}
+  .city-detail-ratings{margin-top:15px;padding-top:14px;border-top:1px solid #e3e8df}.city-detail-ratings-title{font-size:12px;font-weight:900;color:#26351e;margin-bottom:8px}.city-detail-rating-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.city-detail-rating{border:1px solid #e0e7da;background:#f8faf6;border-radius:11px;padding:9px 10px;text-align:left;cursor:pointer;color:#26351e;min-width:0}.city-detail-rating:hover{background:#eef6e7}.city-detail-rating-top{display:flex;justify-content:space-between;align-items:center;gap:8px}.city-detail-rating-label{font-size:10px;font-weight:900}.city-detail-rating-score{font-size:11px;font-weight:900}.city-detail-rating-stars{font-size:12px;color:#6da638;letter-spacing:.5px;margin-top:4px;white-space:nowrap}.city-detail-rating-count{font-size:9px;color:#8a9383;margin-top:2px}.city-detail-rate-note{font-size:9px;color:#8d9588;margin-top:8px}
+  @media(max-width:760px){.sidebar{top:78px;left:10px;width:190px;max-height:34vh}.city-detail{top:78px!important;right:10px!important;width:calc(100vw - 20px)!important;max-width:calc(100vw - 20px)!important;max-height:calc(100vh - 90px)!important}.city-detail-rating-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:430px){.city-detail-rating-grid{grid-template-columns:1fr}.city-detail-stats{grid-template-columns:1fr 1fr!important}}
   `;
   document.head.appendChild(style);
 
@@ -42,5 +47,5 @@
   const panel=document.getElementById('cityDetail');
   if(panel){new MutationObserver(()=>setTimeout(addRatings,0)).observe(panel,{childList:true,subtree:true})}
   document.addEventListener('click',()=>setTimeout(addRatings,80));
-  const version=document.querySelector('.version');if(version)version.textContent='songdo · v0.0.6';
+  const version=document.querySelector('.version');if(version)version.textContent='songdo · v0.0.7';
 })();
