@@ -1,51 +1,39 @@
 (()=>{
   const style=document.createElement('style');
   style.textContent=`
+  :root{--ink:#111;--paper:#fff;--soft:#f5f5f5;--line:#d8d8d8;--muted:#707070}
+  html,body{background:var(--paper)!important;color:var(--ink)!important}
+  header{background:#fff!important;border-color:#ddd!important}h1{color:#111!important}
   .app{grid-template-columns:1fr!important;position:relative}
-  .sidebar{position:fixed!important;top:88px;left:14px;width:230px;max-height:46vh;padding:11px 10px!important;border:1px solid rgba(0,0,0,.10)!important;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.16);background:rgba(251,255,244,.95)!important;backdrop-filter:blur(10px);z-index:930!important;overflow:auto}
-  .sidebar h2{font-size:14px;margin:0 0 2px!important}.sidebar .sub{font-size:9px;margin:0 0 8px!important}.city-list{gap:4px!important}.city-card{padding:6px 8px!important;border-radius:9px!important}.city-head{margin:0!important}.city-name{font-size:11px}.fav-btn{font-size:16px!important;line-height:1;padding:0 2px}.sidebar .social,.sidebar .ratings{display:none!important}
-  .city-detail{position:fixed!important;top:88px!important;right:18px!important;left:auto!important;width:min(390px,calc(100vw - 36px))!important;max-width:calc(100vw - 36px)!important;max-height:calc(100vh - 112px)!important;overflow-x:hidden!important;overflow-y:auto!important;box-sizing:border-box!important;z-index:2500!important}
-  .city-detail.open{transform:translateX(0)!important}
-  .city-detail-photo,.city-detail-body,.city-detail-stats,.city-detail-rating-grid{min-width:0!important}
-  .city-detail img{max-width:100%!important}
-  .city-detail-ratings{margin-top:15px;padding-top:14px;border-top:1px solid #e3e8df}.city-detail-ratings-title{font-size:12px;font-weight:900;color:#26351e;margin-bottom:8px}.city-detail-rating-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.city-detail-rating{border:1px solid #e0e7da;background:#f8faf6;border-radius:11px;padding:9px 10px;text-align:left;cursor:pointer;color:#26351e;min-width:0}.city-detail-rating:hover{background:#eef6e7}.city-detail-rating-top{display:flex;justify-content:space-between;align-items:center;gap:8px}.city-detail-rating-label{font-size:10px;font-weight:900}.city-detail-rating-score{font-size:11px;font-weight:900}.city-detail-rating-stars{font-size:12px;color:#6da638;letter-spacing:.5px;margin-top:4px;white-space:nowrap}.city-detail-rating-count{font-size:9px;color:#8a9383;margin-top:2px}.city-detail-rate-note{font-size:9px;color:#8d9588;margin-top:8px}
-  @media(max-width:760px){.sidebar{top:78px;left:10px;width:190px;max-height:34vh}.city-detail{top:78px!important;right:10px!important;width:calc(100vw - 20px)!important;max-width:calc(100vw - 20px)!important;max-height:calc(100vh - 90px)!important}.city-detail-rating-grid{grid-template-columns:1fr 1fr}}
-  @media(max-width:430px){.city-detail-rating-grid{grid-template-columns:1fr}.city-detail-stats{grid-template-columns:1fr 1fr!important}}
+  .sidebar{position:fixed!important;top:88px;left:14px;width:230px;max-height:46vh;padding:11px 10px!important;border:1px solid #d8d8d8!important;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.12);background:rgba(255,255,255,.96)!important;backdrop-filter:blur(10px);z-index:930!important;overflow:auto}
+  .sidebar h2{font-size:14px;margin:0 0 2px!important;color:#111!important}.sidebar .sub{font-size:9px;margin:0 0 8px!important;color:#777!important}.city-list{gap:4px!important}.city-card{padding:6px 8px!important;border-radius:9px!important;border-color:#ddd!important}.city-head{margin:0!important}.city-name{font-size:11px}.fav-btn{font-size:16px!important;line-height:1;padding:0 2px;color:#aaa!important}.fav-btn.on{color:#111!important}.sidebar .social,.sidebar .ratings{display:none!important}
+  .header-actions>.trip-btn,.header-actions>.language-select,.header-actions>.auth-area{display:none!important}
+  .songdo-menu-button{height:38px;border:1px solid #111;border-radius:10px;background:#111;color:#fff;padding:0 15px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:8px}.songdo-menu-button span{font-size:17px;line-height:1}
+  .songdo-menu{position:fixed;top:72px;right:0;width:min(360px,92vw);height:calc(100vh - 72px);background:#fff;border-left:1px solid #ddd;z-index:2900;box-shadow:-14px 20px 40px rgba(0,0,0,.12);transform:translateX(105%);transition:transform .22s ease;padding:18px;overflow:auto}.songdo-menu.open{transform:translateX(0)}
+  .songdo-menu-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.songdo-menu-title{font-size:20px;font-weight:900}.songdo-menu-close{border:0;background:#f2f2f2;width:34px;height:34px;border-radius:9px;font-size:22px;cursor:pointer;color:#111}
+  .menu-category{border-top:1px solid #e5e5e5;padding:14px 0}.menu-category:first-of-type{border-top:0}.menu-category-title{font-size:11px;font-weight:900;color:#777;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}.menu-item{width:100%;border:0;background:#fff;color:#111;text-align:left;padding:11px 10px;border-radius:9px;font-size:14px;font-weight:800;cursor:pointer;display:block;text-decoration:none}.menu-item:hover{background:#f3f3f3}.menu-item small{display:block;color:#888;font-size:10px;font-weight:500;margin-top:3px}
+  .map-filter{background:#f3f3f3!important;color:#333!important}.map-filter.active{background:#111!important;color:#fff!important;text-shadow:none!important}.map-tint{filter:grayscale(1)!important}.map-legend{filter:grayscale(1)}
+  .city-detail{position:fixed!important;top:88px!important;right:18px!important;left:auto!important;width:min(390px,calc(100vw - 36px))!important;max-width:calc(100vw - 36px)!important;max-height:calc(100vh - 112px)!important;overflow:auto!important;box-sizing:border-box!important;z-index:2500!important;filter:grayscale(1)}
+  .modal,.field select,.field input,.lodging-type,.save-btn{filter:grayscale(1)}.modal-backdrop{background:rgba(0,0,0,.55)!important}
+  @media(max-width:760px){.sidebar{top:78px;left:10px;width:190px;max-height:34vh}.songdo-menu{top:72px;height:calc(100vh - 72px)}.city-detail{top:78px!important;right:10px!important;width:calc(100vw - 20px)!important;max-width:calc(100vw - 20px)!important}}
   `;
   document.head.appendChild(style);
 
-  let selectedCityKey=null;
-  const ratingLabels={safety:'치안',cost:'물가',sights:'볼거리',english_difficulty:'영어 소통'};
-  const starText=v=>v==null?'☆☆☆☆☆':'★'.repeat(Math.max(0,Math.min(5,Math.round(v))))+'☆'.repeat(Math.max(0,5-Math.round(v)));
-
-  function setSelected(key){if(key&&cities?.[key])selectedCityKey=key}
-  document.addEventListener('click',e=>{const n=e.target.closest?.('[data-go]');if(n?.dataset?.go)setSelected(n.dataset.go)},true);
-
-  function bindMarkerSelection(){
-    if(typeof cityLayer==='undefined')return;
-    const keys=Object.keys(cities);let i=0;
-    cityLayer.eachLayer(layer=>{const key=keys[i++];if(key&&!layer.__compactSelectBound){layer.on('click',()=>setSelected(key));layer.__compactSelectBound=true}});
-  }
-  bindMarkerSelection();
-  const oldRenderCompact=render;
-  render=function(){oldRenderCompact();setTimeout(bindMarkerSelection,0)};
-
-  function addRatings(){
-    const panel=document.getElementById('cityDetail');
-    const body=panel?.querySelector('.city-detail-body');
-    if(!body||body.querySelector('.city-detail-ratings')||!selectedCityKey||!cities[selectedCityKey])return;
-    const wrap=document.createElement('div');wrap.className='city-detail-ratings';
-    wrap.innerHTML='<div class="city-detail-ratings-title">여행자 별점</div><div class="city-detail-rating-grid">'+Object.entries(ratingLabels).map(([cat,label])=>{
-      const a=typeof avg==='function'?avg(selectedCityKey,cat):null;
-      const count=typeof catRows==='function'?catRows(selectedCityKey,cat).length:0;
-      return '<button class="city-detail-rating" data-detail-rate="'+cat+'"><div class="city-detail-rating-top"><span class="city-detail-rating-label">'+label+'</span><span class="city-detail-rating-score">'+(a==null?'–':a.toFixed(1))+'</span></div><div class="city-detail-rating-stars">'+starText(a)+'</div><div class="city-detail-rating-count">'+count+'명 평가</div></button>';
-    }).join('')+'</div><div class="city-detail-rate-note">항목을 누르면 직접 별점을 남길 수 있습니다.</div>';
-    body.appendChild(wrap);
-    wrap.querySelectorAll('[data-detail-rate]').forEach(b=>b.onclick=()=>{if(typeof openRating==='function')openRating(selectedCityKey,b.dataset.detailRate)});
+  const actions=document.querySelector('.header-actions');
+  if(actions){
+    const btn=document.createElement('button');btn.className='songdo-menu-button';btn.innerHTML='<span>☰</span> Menu';btn.setAttribute('aria-label','메뉴 열기');actions.prepend(btn);
+    const menu=document.createElement('aside');menu.className='songdo-menu';menu.innerHTML=`<div class="songdo-menu-head"><div class="songdo-menu-title">Menu</div><button class="songdo-menu-close" aria-label="메뉴 닫기">×</button></div>
+      <section class="menu-category"><div class="menu-category-title">여행 계획</div><button class="menu-item" data-action="trip">방문지 설정<small>일정과 방문 도시를 설정합니다.</small></button><button class="menu-item" data-action="lodging">숙소 검색<small>선택한 도시의 숙소를 찾습니다.</small></button><button class="menu-item" data-action="compare">여행지 비교<small>중요 기준에 따라 여행지를 비교합니다.</small></button></section>
+      <section class="menu-category"><div class="menu-category-title">내 여행</div><a class="menu-item" href="/profile.html">프로필 · 여행 기록<small>저장한 여행과 프로필을 관리합니다.</small></a></section>
+      <section class="menu-category"><div class="menu-category-title">설정</div><button class="menu-item" data-action="language">언어 설정<small>사이트 표시 언어를 변경합니다.</small></button><button class="menu-item" data-action="account">계정<small>로그인 및 계정 메뉴를 확인합니다.</small></button></section>`;
+    document.body.appendChild(menu);
+    const close=()=>menu.classList.remove('open');btn.onclick=()=>menu.classList.toggle('open');menu.querySelector('.songdo-menu-close').onclick=close;
+    menu.addEventListener('click',e=>{const a=e.target.closest('[data-action]');if(!a)return;const type=a.dataset.action;if(type==='trip')document.getElementById('openTrip')?.click();if(type==='lodging')document.getElementById('openLodging')?.click();if(type==='compare'){const compareBtn=document.querySelector('[data-compare-open],#openCompare,.compare-open');if(compareBtn)compareBtn.click();else if(typeof openCompare==='function')openCompare()}if(type==='language'){const sel=document.getElementById('languageSelect');if(sel){sel.style.display='block';sel.focus();sel.click()}}if(type==='account'){const auth=document.getElementById('authArea');const link=auth?.querySelector('a,button');if(link)link.click();else location.href='/login.html'}if(type!=='language')close()});
   }
 
-  const panel=document.getElementById('cityDetail');
-  if(panel){new MutationObserver(()=>setTimeout(addRatings,0)).observe(panel,{childList:true,subtree:true})}
-  document.addEventListener('click',()=>setTimeout(addRatings,80));
-  const version=document.querySelector('.version');if(version)version.textContent='songdo · v0.0.7';
+  let selectedCityKey=null;const ratingLabels={safety:'치안',cost:'물가',sights:'볼거리',english_difficulty:'영어 소통'};const starText=v=>v==null?'☆☆☆☆☆':'★'.repeat(Math.max(0,Math.min(5,Math.round(v))))+'☆'.repeat(Math.max(0,5-Math.round(v)));
+  function setSelected(key){if(key&&cities?.[key])selectedCityKey=key}document.addEventListener('click',e=>{const n=e.target.closest?.('[data-go]');if(n?.dataset?.go)setSelected(n.dataset.go)},true);
+  function bindMarkerSelection(){if(typeof cityLayer==='undefined')return;const keys=Object.keys(cities);let i=0;cityLayer.eachLayer(layer=>{const key=keys[i++];if(key&&!layer.__compactSelectBound){layer.on('click',()=>setSelected(key));layer.__compactSelectBound=true}})}bindMarkerSelection();const oldRenderCompact=render;render=function(){oldRenderCompact();setTimeout(bindMarkerSelection,0)};
+  function addRatings(){const panel=document.getElementById('cityDetail');const body=panel?.querySelector('.city-detail-body');if(!body||body.querySelector('.city-detail-ratings')||!selectedCityKey||!cities[selectedCityKey])return;const wrap=document.createElement('div');wrap.className='city-detail-ratings';wrap.innerHTML='<div class="city-detail-ratings-title">여행자 별점</div><div class="city-detail-rating-grid">'+Object.entries(ratingLabels).map(([cat,label])=>{const a=typeof avg==='function'?avg(selectedCityKey,cat):null;const count=typeof catRows==='function'?catRows(selectedCityKey,cat).length:0;return '<button class="city-detail-rating" data-detail-rate="'+cat+'"><div class="city-detail-rating-top"><span>'+label+'</span><b>'+(a==null?'–':a.toFixed(1))+'</b></div><div>'+starText(a)+'</div><small>'+count+'명 평가</small></button>'}).join('')+'</div>';body.appendChild(wrap);wrap.querySelectorAll('[data-detail-rate]').forEach(b=>b.onclick=()=>{if(typeof openRating==='function')openRating(selectedCityKey,b.dataset.detailRate)})}
+  const panel=document.getElementById('cityDetail');if(panel)new MutationObserver(()=>setTimeout(addRatings,0)).observe(panel,{childList:true,subtree:true});document.addEventListener('click',()=>setTimeout(addRatings,80));const version=document.querySelector('.version');if(version)version.textContent='songdo · v0.0.8';
 })();
