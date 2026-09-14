@@ -5,8 +5,6 @@
   const style=document.createElement('style');
   style.id=STYLE_ID;
   style.textContent=`
-  .compare-btn{height:38px;border-radius:10px;border:1px solid #86b94f;padding:0 14px;background:#fff;color:#2c431d;font-weight:700;cursor:pointer}
-  .compare-btn:hover{background:#f4fbe9}
   .compare-backdrop{position:fixed;inset:0;background:#24371999;z-index:3600;display:none;align-items:center;justify-content:center;padding:20px}
   .compare-backdrop.open{display:flex}
   .compare-panel{width:min(920px,100%);max-height:min(820px,92vh);overflow:auto;background:#fbfff4;border:1px solid #dcebbf;border-radius:18px;padding:22px;box-shadow:0 24px 70px rgba(23,45,13,.28)}
@@ -18,7 +16,7 @@
   .compare-section-title{font-size:12px;font-weight:900;color:#365c22;margin:15px 0 9px}.compare-weights{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px}.compare-weight{padding:10px 12px;background:#fff;border:1px solid #e0eccb;border-radius:11px}.compare-weight-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.compare-weight label{font-size:11px;font-weight:800}.compare-weight output{font-size:11px;font-weight:900;color:#659b32}.compare-weight input{width:100%;accent-color:#7db640}
   .compare-table{margin-top:15px;border:1px solid #dcebbf;border-radius:13px;overflow:hidden;background:#fff}.compare-row{display:grid;grid-template-columns:1.25fr 1fr 1fr;align-items:center;min-height:47px;border-bottom:1px solid #edf3e3}.compare-row:last-child{border-bottom:0}.compare-row>div{padding:9px 11px}.compare-row .metric{font-size:11px;color:#647458;font-weight:800}.compare-row .citymetric{text-align:center}.compare-row .raw{display:block;font-size:10px;color:#8a9680;margin-top:2px}.compare-row .points{font-size:14px;font-weight:900;color:#2c431d}.compare-row.winner-left>div:nth-child(2),.compare-row.winner-right>div:nth-child(3){background:#f0f9e2}
   .compare-note{margin:12px 2px 0;color:#7b8871;font-size:10px;line-height:1.5}
-  @media(max-width:680px){.compare-panel{padding:16px}.compare-pickers{grid-template-columns:1fr}.compare-vs{padding:0}.compare-weights{grid-template-columns:1fr}.compare-row{grid-template-columns:1.05fr 1fr 1fr}.compare-btn{padding:0 10px}}
+  @media(max-width:680px){.compare-panel{padding:16px}.compare-pickers{grid-template-columns:1fr}.compare-vs{padding:0}.compare-weights{grid-template-columns:1fr}.compare-row{grid-template-columns:1.05fr 1fr 1fr}}
   `;
   document.head.appendChild(style);
 
@@ -58,13 +56,6 @@
     <p class="compare-note">점수는 Songdo가 현재 보유한 도시 데이터에 선택한 중요도를 가중해 계산합니다. 물가 점수는 예상 일일비용이 낮을수록 높고, 날씨 점수는 약 22°C에 가까울수록 높게 계산됩니다.</p>
   </div>`;
   document.body.appendChild(backdrop);
-
-  const headerActions=document.querySelector('.header-actions');
-  if(headerActions){
-    const btn=document.createElement('button');btn.className='compare-btn';btn.id='openCompare';btn.textContent='여행지 비교';
-    headerActions.insertBefore(btn,headerActions.firstChild);
-    btn.addEventListener('click',()=>{refreshCities();backdrop.classList.add('open');render();});
-  }
 
   const aSel=backdrop.querySelector('#compareCityA'),bSel=backdrop.querySelector('#compareCityB');
   const weightsWrap=backdrop.querySelector('#compareWeights'),presetsWrap=backdrop.querySelector('#comparePresets');
@@ -110,6 +101,8 @@
     }).join('');
   }
 
+  window.openDestinationCompare=()=>{refreshCities();backdrop.classList.add('open');render();};
+
   aSel.addEventListener('change',()=>{if(aSel.value===bSel.value){const keys=Object.keys(data());bSel.value=keys.find(k=>k!==aSel.value)||bSel.value;}render();});
   bSel.addEventListener('change',()=>{if(aSel.value===bSel.value){const keys=Object.keys(data());aSel.value=keys.find(k=>k!==bSel.value)||aSel.value;}render();});
   backdrop.querySelector('.compare-close').onclick=()=>backdrop.classList.remove('open');
@@ -117,5 +110,4 @@
   document.addEventListener('keydown',e=>{if(e.key==='Escape')backdrop.classList.remove('open');});
 
   refreshCities();syncControls();render();
-  const version=document.querySelector('.version');if(version)version.textContent='songdo · v0.0.4';
 })();
